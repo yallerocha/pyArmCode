@@ -41,7 +41,7 @@ class PyArmAngles:
 
     return angle
   
-  # Funcao que calcula o angulo da articulacao 1
+  # Funcao que calcula o angulo da junta 1
   def angleJoint1(self, x, y, angle2):
     if angle2 < 0:
       rad = math.atan2(x, y) + math.acos((x**2 + y**2 + self.L1**2 - self.L2**2) / (2 * self.L1 * math.sqrt(x**2 + y**2)))
@@ -52,14 +52,14 @@ class PyArmAngles:
 
     return angle1
   
-  # Funcao que calcula o angulo da articulacao 2
+  # Funcao que calcula o angulo da junta 2
   def angleJoint2(self, x, y):
     rad = math.acos((x**2 + y**2 - self.L1**2 - self.L2**2) / (2 * self.L1 * self.L2))
     angle2 = math.degrees(rad)
 
     return angle2
   
-  # Funcao que calcula o angulo da articulacao 3
+  # Funcao que calcula o angulo da junta 3
   def angleJoint3(self, angle1, angle2):
     angle3 = self.fi - (angle1 + angle2)
 
