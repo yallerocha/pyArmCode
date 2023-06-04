@@ -11,9 +11,9 @@ def main():
 
 class PyArmAngles:
 
-  L1 = 7.0
-  L2 = 7.0
-  L3 = 3.0
+  L1 = 16.0
+  L2 = 16.0
+  L3 = 14.0
   fi = 180.0
 
   '''Funcao que retorna os angulos necessarios 
