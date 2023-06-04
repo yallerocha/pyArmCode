@@ -1,13 +1,13 @@
 import math
 
 def main():
-    pyArm = PyArmAngles()
-    angles = pyArm.getAngles(6, 6, 6)
+  pyArm = PyArmAngles()
+  angles = pyArm.getAngles(6, 6, 6)
     
-    print(f"Angulo Base: {angles[0]}")
-    print(f"Angulo Junta 1: {angles[1]}")
-    print(f"Angulo Junta 2: {angles[2]}")
-    print(f"Angulo Junta 3: {angles[3]}")
+  print(f"Angulo Base: {angles[0]}")
+  print(f"Angulo Junta 1: {angles[1]}")
+  print(f"Angulo Junta 2: {angles[2]}")
+  print(f"Angulo Junta 3: {angles[3]}")
 
 class PyArmAngles:
 
