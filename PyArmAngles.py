@@ -2,7 +2,7 @@ import math
 
 def main():
   pyArm = PyArmAngles()
-  angles = pyArm.getAngles(6, 6, 6)
+  angles = pyArm.getAngles(19, 1, 0)
     
   print(f"Angulo Base: {angles[0]}")
   print(f"Angulo Junta 1: {angles[1]}")
@@ -11,9 +11,10 @@ def main():
 
 class PyArmAngles:
 
-  L1 = 16.0
-  L2 = 16.0
-  L3 = 14.0
+  L1 = 10.0
+  L2 = 10.0
+  L3 = 0.0
+  
   fi = 180.0
 
   '''Funcao que retorna os angulos necessarios 
@@ -22,7 +23,7 @@ class PyArmAngles:
 
     joint3_x, joint3_y = self.joint3Coords(x, y, z)
 
-    if(self.positionValidation(joint3_x, joint3_y)):
+    if(self.positionValidation(joint3_x, y)):
 
       angleB = self.angleBase(x, y)
       angle2 = self.angleJoint2(joint3_x, joint3_y)
@@ -43,19 +44,15 @@ class PyArmAngles:
   
   # Funcao que calcula o angulo da junta 1
   def angleJoint1(self, x, y, angle2):
-    if angle2 < 0:
-      rad = math.atan2(x, y) + math.acos((x**2 + y**2 + self.L1**2 - self.L2**2) / (2 * self.L1 * math.sqrt(x**2 + y**2)))
-    else:
-      rad = math.atan2(x, y) - math.acos((x**2 + y**2 + self.L1**2 - self.L2**2) / (2 * self.L1 * math.sqrt(x**2 + y**2)))
-
-    angle1 = math.degrees(rad)
+    cos = (y**2 - x**2 - math.hypot(x,y)**2) / (-2 * x * math.hypot(x,y))
+    angle1 = math.degrees(math.acos(cos)) + (180 - angle2) / 2
 
     return angle1
   
   # Funcao que calcula o angulo da junta 2
   def angleJoint2(self, x, y):
     rad = math.acos((x**2 + y**2 - self.L1**2 - self.L2**2) / (2 * self.L1 * self.L2))
-    angle2 = math.degrees(rad)
+    angle2 = 140 - math.degrees(rad)
 
     return angle2
   
@@ -76,8 +73,8 @@ class PyArmAngles:
     
   # Funcao que retorna o X e Y em relação a junta 3 para calcular os angulos
   def joint3Coords(self, x, y, z):
-    joint3_x = math.hypot(x, y) - self.L3 * math.sin(self.fi)
-    joint3_y = z - self.L3 * math.cos(self.fi)
+    joint3_x = math.hypot(x, y) - self.L3 * math.cos(self.fi)
+    joint3_y = z - self.L3 * math.sin(self.fi)
 
     return joint3_x, joint3_y
   
