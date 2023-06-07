@@ -65,11 +65,11 @@ class PyArmAngles:
   # Funcao que verifica se é possivel alcancar a posicao recebida
   def positionValidation(self, x, y):
     dist = math.sqrt(x**2 + y**2)
-
+    
     if(dist <= self.L1 + self.L2):
       return True
-    else:
-      return False
+    
+    return False
     
   # Funcao que retorna o X e Y em relação a junta 3 para calcular os angulos
   def joint3Coords(self, x, y, z):
