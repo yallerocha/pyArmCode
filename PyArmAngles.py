@@ -2,7 +2,7 @@ import math
 
 def main():
   pyArm = PyArmAngles()
-  angles = pyArm.getAngles(-8, 8, 8)
+  angles = pyArm.getAngles(9, 15, 12)
     
   print(f"Angulo Base: {angles[0]}")
   print(f"Angulo Junta 1: {angles[1]}")
