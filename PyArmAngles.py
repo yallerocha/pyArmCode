@@ -67,11 +67,10 @@ class PyArmAngles:
   # Funcao que verifica se é possivel alcancar a posicao recebida
   def positionValidation(self, x, y, z):
     if(y >= 0):
-
       joint3_x, joint3_y = self.joint3Coords(x, y, z)
       print(joint3_x, joint3_y)
+      
       dist = math.hypot(joint3_x, joint3_y)
-
       if(dist <= self.L1 + self.L2):
         return True
       else:
