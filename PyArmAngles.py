@@ -3,7 +3,8 @@ import math
 def main():
   pyArm = PyArmAngles()
   angles = pyArm.getAngles(9, 15, 12)
-    
+
+  # Vizualizacao dos angulos  
   print(f"Angulo Base: {angles[0]}")
   print(f"Angulo Junta 1: {angles[1]}")
   print(f"Angulo Junta 2: {angles[2]}")
@@ -11,10 +12,12 @@ def main():
 
 class PyArmAngles:
 
+  # L1, L2 e L3 representam os comprimentos dos elos do pyArm
   L1 = 16.0
   L2 = 16.0
   L3 = 14.0
-  
+
+  # fi representa o angulo de inclinação da ferramenta
   fi = 140.0
 
   '''Funcao que retorna os angulos necessarios 
