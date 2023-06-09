@@ -2,7 +2,7 @@ import math
 
 def main():
   pyArm = PyArmAngles()
-  angles = pyArm.getAngles(9, 15, 12)
+  angles = pyArm.getAngles(9, 35, 12)
 
   # Vizualizacao dos angulos  
   print(f"Angulo Base: {angles[0]}")
@@ -68,7 +68,7 @@ class PyArmAngles:
   
   # Funcao que verifica se é possivel alcancar a posicao recebida
   def positionValidation(self, x, y):
-    dist = math.sqrt(x**2 + y**2)
+    dist = math.hypot(x, y)
 
     if(dist <= self.L1 + self.L2):
       return True
@@ -78,7 +78,9 @@ class PyArmAngles:
   # Funcao que retorna o X e Y em relação a junta 3 para calcular os angulos
   def joint3Coords(self, x, y, z):
     if(y >= 0):
-      joint3_x = math.hypot(x, y) - self.L3 * math.cos(self.fi)
+      dist = math.hypot(x, y)
+
+      joint3_x = dist - self.L3 * math.cos(self.fi)
       joint3_y = z - self.L3 * math.sin(self.fi)
 
       return joint3_x, joint3_y
