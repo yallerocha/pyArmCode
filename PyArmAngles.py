@@ -20,7 +20,7 @@ class PyArmAngles:
   L3 = 14.0
 
   # fi representa o angulo de inclinação da ferramenta
-  fi = 90.0
+  fi = 140.0
 
   '''Funcao que retorna os angulos necessarios 
   para alcancar uma determinada posicao com o pyArm'''
