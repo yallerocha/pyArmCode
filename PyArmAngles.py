@@ -2,7 +2,9 @@ import math
 
 def main():
   pyArm = PyArmAngles()
-  angles = pyArm.getAngles(9, 15, 12)
+
+  # Insercao da posicao a ser alcancada (x, y, z)
+  angles = pyArm.getAngles(9, 11, 16)
 
   # Vizualizacao dos angulos  
   print(f"Angulo Base: {angles[0]}")
@@ -18,24 +20,22 @@ class PyArmAngles:
   L3 = 14.0
 
   # fi representa o angulo de inclinação da ferramenta
-  fi = 140.0
+  fi = 90.0
 
   '''Funcao que retorna os angulos necessarios 
   para alcancar uma determinada posicao com o pyArm'''
   def getAngles(self, x, y, z):
-    joint3_x, joint3_y = self.joint3Coords(x, y, z)
 
-    if(self.positionValidation(joint3_x, joint3_y)):
+    if(self.positionValidation(x, y, z)):
+
+      joint3_x, joint3_y = self.joint3Coords(x, y, z)
+
       angleB = self.angleBase(x, y)
-
       angle1 = self.angleJoint1(joint3_x, joint3_y)
       angle2 = self.angleJoint2(joint3_x, joint3_y)
       angle3 = self.angleJoint3(angle1, angle2)
 
       return angleB, angle1, angle2, angle3
-    
-    else:
-      raise positionError("Position outside the workspace!")
 
   # Funcao que calcula o angulo da base
   def angleBase(self, x, y):
@@ -65,25 +65,28 @@ class PyArmAngles:
     return angle3
   
   # Funcao que verifica se é possivel alcancar a posicao recebida
-  def positionValidation(self, x, y):
-    dist = math.hypot(x, y)
+  def positionValidation(self, x, y, z):
+    if(y >= 0):
 
-    if(dist <= self.L1 + self.L2):
-      return True
-    
-    return False
-    
+      joint3_x, joint3_y = self.joint3Coords(x, y, z)
+      print(joint3_x, joint3_y)
+      dist = math.hypot(joint3_x, joint3_y)
+
+      if(dist <= self.L1 + self.L2):
+        return True
+      else:
+        raise positionError("Position outside the vertical workspace!")
+    else:
+      raise positionError("Position outside the horizontal workspace!")
+
   # Funcao que retorna o X e Y em relação a junta 3 para calcular os angulos
   def joint3Coords(self, x, y, z):
-    if(y >= 0):
-      dist = math.hypot(x, y)
+    dist = math.hypot(x, y)
 
-      joint3_x = dist - self.L3 * math.cos(self.fi)
-      joint3_y = z - self.L3 * math.sin(self.fi)
+    joint3_x = dist - self.L3 * math.cos(self.fi)
+    joint3_y = z - self.L3 * math.sin(self.fi)
 
-      return joint3_x, joint3_y
-    else:
-      raise positionError("Position outside the workspace!")
+    return joint3_x, joint3_y
   
 class positionError(Exception):
   pass
